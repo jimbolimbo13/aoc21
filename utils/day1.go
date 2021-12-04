@@ -34,7 +34,7 @@ func Day1() {
 		}
 	}
 
-	fmt.Println("increases", increases)
+	fmt.Println("Day1, Part2:", increases)
 
 }
 

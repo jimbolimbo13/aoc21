@@ -45,7 +45,7 @@ func Day2() {
 
 	}
 
-	fmt.Println(sub.distance * sub.depth)
+	fmt.Println("Day2, Part2", sub.distance * sub.depth)
 }
 
 // func move(direction string, amount int, sub *position) {
