@@ -14,11 +14,57 @@ var(
 )
 func Day5() {
 	d5_part1()
-	// d5_part2()
+	d5_part2()
 }
 
 func d5_part2(){
-	fmt.Println("Day5, Part2")
+	file, err := os.Open("./data/day5_input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	ortho_lns := make([][]int, 0)
+	line := make([]string, 4)
+	line_int := make([]int, 4)
+	max_xy := []int{0,0}
+	for scanner.Scan() {
+		split := strings.Fields(scanner.Text())
+		first := strings.Split(split[0], ",")
+		second := strings.Split(split[2], ",")
+
+		line = []string{first[0], first[1], second[0], second[1]}
+		line_int = str_to_int(line)
+		ortho_lns = append(ortho_lns, line_int)
+		mag_max, dir_max := get_max_vec(line_int)
+		if dir_max < 0 {
+			if mag_max > max_xy[0]{
+				max_xy[0] = mag_max
+			}
+			if mag_max > max_xy[1]{
+				max_xy[1] = mag_max
+			}
+		} else {
+			if mag_max > max_xy[dir_max] {
+				max_xy[dir_max] = mag_max
+			}
+		}
+	}
+
+	floor = make([][]int, max_xy[1] + 2)
+	for i, _ := range floor {
+		floor[i] = make([]int, max_xy[0] + 2)
+	}
+	for _, v := range ortho_lns{
+		trace_vec(v)
+	}
+
+	// for _, v := range floor {
+	// 	fmt.Println(v)
+	// }
+	fmt.Println("Day5, Part2:",count_overlap(2))
 }
 
 func d5_part1() {
@@ -43,15 +89,24 @@ func d5_part1() {
 			line_int = str_to_int(line)
 			ortho_lns = append(ortho_lns, line_int)
 			mag_max, dir_max := get_max_vec(line_int)
-			if mag_max > max_xy[dir_max] {
-				max_xy[dir_max] = mag_max
+			if dir_max < 0 {
+				if mag_max > max_xy[0]{
+					max_xy[0] = mag_max
+				}
+				if mag_max > max_xy[1]{
+					max_xy[1] = mag_max
+				}
+			} else {
+				if mag_max > max_xy[dir_max] {
+					max_xy[dir_max] = mag_max
+				}
 			}
 		}
 	}
 
-	floor = make([][]int, max_xy[1] + 1)
+	floor = make([][]int, (max_xy[0] + 1))
 	for i, _ := range floor {
-		floor[i] = make([]int, max_xy[0] + 1)
+		floor[i] = make([]int, (max_xy[1] + 1))
 	}
 	for _, v := range ortho_lns{
 		trace_vec(v)
@@ -76,24 +131,36 @@ func count_overlap(threshold int) int {
 }
 
 func trace_vec(vec []int){
-	x_diff := int(math.Abs(float64(vec[0] - vec[2])))
-	y_diff := int(math.Abs(float64(vec[1] - vec[3])))
-	run := greater(x_diff, y_diff)
-	for i := vec[(lesser(vec[run%2], vec[(run%2)+2])*2)+run];
-		i <= vec[(greater(vec[run%2], vec[(run%2)+2])*2)+run];
-		i ++ {
-			x:=0
-			y:=0
+	x_diff := vec[2] - vec[0]
+	y_diff := vec[3] - vec[1]
+	dir_xy := []int{1,1}
+	if x_diff < 0{
+		dir_xy[0] = -1
+	}
+	if y_diff < 0{
+		dir_xy[1] = -1
+	}
 
-			if run == 0{
-				x = i
-				y = vec[1]
-			} else {
-				x = vec[0]
-				y = i
-			}
+	diff_xy := []int{int(math.Abs(float64(x_diff))),
+		int(math.Abs(float64(y_diff)))}
+	run := greater(diff_xy[0], diff_xy[1])
+	diag := false
+	if diff_xy[0] == diff_xy[1] {
+		diag = true
+	}
+	xy := []int{vec[0],vec[1]}
+	for i := 0; i <= diff_xy[run]; i ++ {
+		// if xy[0] >= 989 || xy [1] >= 989 {
+		// 	fmt.Println(vec,run,diag,xy) //,len(floor[xy[0]]),len(floor[xy[1]]))
+		// }
+		floor[xy[0]][xy[1]] += 1
+		if diag {
+			xy[0] += (1*dir_xy[0])
+			xy[1] += (1*dir_xy[1])
+		} else {
+			xy[run] += (1*dir_xy[run])
+		}
 
-			floor[y][x] += 1
 	}
 }
 
@@ -121,6 +188,9 @@ func get_max_vec(vec []int) (int, int){
 			ret_mag = v
 			ret_dir = i%2
 		}
+	}
+	if ret_mag == vec[1^ret_dir] || ret_mag == vec[1^ret_dir + 2]{
+		ret_dir = -1
 	}
 	return ret_mag, ret_dir
 }
