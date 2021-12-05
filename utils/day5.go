@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"math"
 	"bufio"
 	"os"
 	"strings"
@@ -21,7 +22,7 @@ func d5_part2(){
 }
 
 func d5_part1() {
-	file, err := os.Open("./data/day5_example.txt")
+	file, err := os.Open("./data/day5_input.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -48,10 +49,68 @@ func d5_part1() {
 		}
 	}
 
+	floor = make([][]int, max_xy[1] + 1)
+	for i, _ := range floor {
+		floor[i] = make([]int, max_xy[0] + 1)
+	}
+	for _, v := range ortho_lns{
+		trace_vec(v)
+	}
 
-	fmt.Println(max_xy)
-	fmt.Println(ortho_lns)
-	fmt.Println("Day5, Part1:")
+	// for _, v := range floor {
+	// 	fmt.Println(v)
+	// }
+	fmt.Println("Day5, Part1:",count_overlap(2))
+}
+
+func count_overlap(threshold int) int {
+	count := 0
+	for _, y := range floor {
+		for _, xy := range y {
+			if xy >= threshold{
+				count += 1
+			}
+		}
+	}
+	return count
+}
+
+func trace_vec(vec []int){
+	x_diff := int(math.Abs(float64(vec[0] - vec[2])))
+	y_diff := int(math.Abs(float64(vec[1] - vec[3])))
+	run := greater(x_diff, y_diff)
+	for i := vec[(lesser(vec[run%2], vec[(run%2)+2])*2)+run];
+		i <= vec[(greater(vec[run%2], vec[(run%2)+2])*2)+run];
+		i ++ {
+			x:=0
+			y:=0
+
+			if run == 0{
+				x = i
+				y = vec[1]
+			} else {
+				x = vec[0]
+				y = i
+			}
+
+			floor[y][x] += 1
+	}
+}
+
+func lesser(a int, b int) int{
+	if a < b {
+		return 0
+	} else {
+		return 1
+	}
+}
+
+func greater(a int, b int) int{
+	if a >= b {
+		return 0
+	} else {
+		return 1
+	}
 }
 
 func get_max_vec(vec []int) (int, int){
