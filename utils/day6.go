@@ -14,14 +14,49 @@ var (
 )
 
 func Day6() {
-	// d6_part1()
+	d6_part1()
 	d6_part2()
 }
 
 func d6_part2(){
 	growth_period = 256
-	d6_part1()
-	fmt.Println("Day6, Part2")
+	file, err := os.Open("./data/day6_input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	angler_school := [10]int{0,0,0,0,0,0,0,0,0,0}
+	for scanner.Scan() {
+		og_fish := strings.Split(scanner.Text(), ",")
+		for _, v := range og_fish {
+			next_fish, _ := strconv.Atoi(v)
+			angler_school[next_fish] += 1
+		}
+	}
+
+
+	angler_sum := 0
+	for i := 0; i < growth_period  ; i++ {
+		angler_school[7] += angler_school[0]
+		angler_school[9] = angler_school[0]
+		for j := 0; j < len(angler_school) - 1; j++ {
+			angler_school[j] = angler_school[j+1]
+		}
+		angler_school[9] = 0
+		angler_sum = 0
+		for _, v := range angler_school {
+			angler_sum += v
+		}
+	}
+
+	angler_sum = 0
+	for _, v := range angler_school {
+		angler_sum += v
+	}
+
+	fmt.Println("Day6, Part2:", angler_sum)
 }
 
 func d6_part1() {
