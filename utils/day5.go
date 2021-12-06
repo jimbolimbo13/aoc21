@@ -7,10 +7,13 @@ import (
 	"os"
 	"strings"
 	"strconv"
+	"sync"
 )
 
 var(
 	floor = make([][]int, 0)
+	floor_wait sync.WaitGroup
+	floor_lock sync.Mutex
 )
 func Day5() {
 	d5_part1()
@@ -58,8 +61,10 @@ func d5_part2(){
 		floor[i] = make([]int, max_xy[0] + 2)
 	}
 	for _, v := range ortho_lns{
-		trace_vec(v)
+		floor_wait.Add(1)
+		go trace_vec(v)
 	}
+	floor_wait.Wait()
 
 	// for _, v := range floor {
 	// 	fmt.Println(v)
@@ -108,9 +113,12 @@ func d5_part1() {
 	for i, _ := range floor {
 		floor[i] = make([]int, (max_xy[1] + 1))
 	}
+	// floor_wait.Add(len(ortho_lns))
 	for _, v := range ortho_lns{
-		trace_vec(v)
+		floor_wait.Add(1)
+		go trace_vec(v)
 	}
+	floor_wait.Wait()
 
 	// for _, v := range floor {
 	// 	fmt.Println(v)
@@ -131,6 +139,7 @@ func count_overlap(threshold int) int {
 }
 
 func trace_vec(vec []int){
+	defer floor_wait.Done()
 	x_diff := vec[2] - vec[0]
 	y_diff := vec[3] - vec[1]
 	dir_xy := []int{1,1}
@@ -153,7 +162,9 @@ func trace_vec(vec []int){
 		// if xy[0] >= 989 || xy [1] >= 989 {
 		// 	fmt.Println(vec,run,diag,xy) //,len(floor[xy[0]]),len(floor[xy[1]]))
 		// }
+		floor_lock.Lock()
 		floor[xy[0]][xy[1]] += 1
+		floor_lock.Unlock()
 		if diag {
 			xy[0] += (1*dir_xy[0])
 			xy[1] += (1*dir_xy[1])
