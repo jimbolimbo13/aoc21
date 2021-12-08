@@ -57,7 +57,7 @@ func d5_part2(){
 	}
 
 	floor = make([][]int, max_xy[1] + 2)
-	for i, _ := range floor {
+	for i := range floor {
 		floor[i] = make([]int, max_xy[0] + 2)
 	}
 	for _, v := range ortho_lns{
@@ -110,7 +110,7 @@ func d5_part1() {
 	}
 
 	floor = make([][]int, (max_xy[0] + 1))
-	for i, _ := range floor {
+	for i := range floor {
 		floor[i] = make([]int, (max_xy[1] + 1))
 	}
 	// floor_wait.Add(len(ortho_lns))
