@@ -9,6 +9,7 @@ require (
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/motemen/go-quickfix v0.0.0-20210528191040-5ef99de20668 // indirect
 	github.com/peterh/liner v1.2.1 // indirect
+	github.com/psampaz/slice v0.2.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/stamblerre/gocode v1.0.0 // indirect
 	github.com/x-motemen/gore v0.5.3 // indirect

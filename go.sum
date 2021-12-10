@@ -10,6 +10,8 @@ github.com/motemen/go-quickfix v0.0.0-20210528191040-5ef99de20668/go.mod h1:Edy7
 github.com/peterh/liner v1.2.1 h1:O4BlKaq/LWu6VRWmol4ByWfzx6MfXc5Op5HETyIy5yg=
 github.com/peterh/liner v1.2.1/go.mod h1:CRroGNssyjTd/qIG2FyxByd2S8JEAZXBl4qUrZf8GS0=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/psampaz/slice v0.2.0 h1:QmWgx8ROo3Iz1RuumrKOlObLp2yqahs73pXZ3QsYCME=
+github.com/psampaz/slice v0.2.0/go.mod h1:WzQrs9ppHnGp88hQSh4RjJ7i0bGBv8/nNBPBi5itkYc=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/stamblerre/gocode v1.0.0 h1:5aTRgkRTOS8mELHoKatkwhfX44OdEV3iwu3FCXyvLzk=
