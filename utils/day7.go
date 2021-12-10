@@ -35,7 +35,7 @@ func d7_part2(){
 
 	sort.Ints(crabs)
 
-	gather_point := get_median(crabs)
+	gather_point := Get_median(crabs)
 	first_cost := get_fleet_cost(crabs, gather_point)
 	lower_cost := get_fleet_cost(crabs, gather_point-1)
 	higher_cost := get_fleet_cost(crabs, gather_point+1)
@@ -89,7 +89,7 @@ func d7_part1() {
 	sort.Ints(crabs)
 	// crabs_grouped := make([]int, crabs[len(crabs)-1]+1)
 
-	gather_point := get_median(crabs)
+	gather_point := Get_median(crabs)
 	fuel_cost := 0
 	for _,v := range crabs {
 		// crabs_grouped[v] += 1
@@ -114,7 +114,7 @@ func get_cost(dist int) int {
 	return cost
 }
 
-func get_median(sl []int) int {
+func Get_median(sl []int) int {
 	median := 0
 	median = len(sl)/2
 	if len(sl) %2 ==1{

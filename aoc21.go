@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	utils.Day9()
+	utils.Day10()
 	//all_days()
 }
 
@@ -21,4 +21,5 @@ func all_days() {
 	utils.Day7()
 	utils.Day8()
 	utils.Day9()
+	utils.Day10()
 }
