@@ -16,7 +16,7 @@ func dXX_part2(){
 }
 
 func dXX_part1() {
-	file, err := os.Open("./data/dayXX_example.txt")
+	file, err := os.Open("./data/dayXX-example.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
