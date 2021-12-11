@@ -18,15 +18,16 @@ func d11_part2(){
 }
 
 func d11_part1() {
-	file, err := os.Open("./data/day11-example.txt")
+	file, err := os.Open("./data/day11_example.txt")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
 	octopi := make([]int,0,100)
-	octo_nrg := new(map[int][]int)
+	octo_nrg := make(map[int][]int)
 	dim := make([]int,2)
 
 	for scanner.Scan() {
@@ -35,14 +36,24 @@ func d11_part1() {
 		for _, v := range new_row {
 			nrg, _ := strconv.Atoi(v)
 			octopi = append(octopi, nrg)
-			if _, ok := octo_nrg[nrg]; ok {
-				octo_nrg = append(octo_nrg[nrg])
-			}
-			// else {
+			// if _, ok := octo_nrg[nrg]; ok {
+			// 	octo_nrg[nrg] = append(octo_nrg[nrg])
+			// } else {
 			// 	octo_nrg[nrg] = []int{(len(octopi)-1)}
 			// }
 		}
 	}
 	fmt.Println(octopi)
 	fmt.Println("Day11, Part1:")
+}
+
+func step1(octopi []int, octo_nrg map[int][]int) {
+	for i, v := range octopi {
+		octopi[i] = v +1
+		if _, ok := octo_nrg[v+1]; ok {
+			octo_nrg[v+1] = append(octo_nrg[v+1], i)
+		} else {
+			octo_nrg[v+1] = []int{i}
+		}
+	}
 }
