@@ -5,6 +5,7 @@ go 1.17
 require aoc21/utils v0.0.0
 
 require (
+	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/keegancsmith/rpc v1.3.0 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/motemen/go-quickfix v0.0.0-20210528191040-5ef99de20668 // indirect
