@@ -19,9 +19,9 @@ var(
 )
 
 func Day11() {
-	// flash_graphics()
-	d11_part1()
-	d11_part2()
+	flash_graphics()
+	// d11_part1()
+	// d11_part2()
 }
 
 func flash_graphics(){
@@ -48,15 +48,13 @@ func flash_graphics(){
 		dim[0] ++
 	}
 
-	run_count := 0
 	for !all_flashed {
 		run_step(&octopi, dim)
-		run_count ++
-		cmd := exec.Command("clear") //Linux example, its tested
+		cmd := exec.Command("clear")
 		cmd.Stdout = os.Stdout
         cmd.Run()
 		Print_grid_flash(octopi, dim)
-		time.Sleep(150 * time.Millisecond)
+		time.Sleep(75 * time.Millisecond)
 	}
 
 	fmt.Println()

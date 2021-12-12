@@ -11,8 +11,48 @@ import (
 )
 
 func Day9() {
+	// display_stuff()
 	d9_part1()
 	d9_part2()
+}
+
+func display_stuff(){
+	file, err := os.Open("./data/day9_input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	cave_floor := make([][]int, 0)
+	basins := make([]int, 0, 100)
+	dimensions := make([]int, 2)
+	flash_floor := make([]int,0,100)
+	row_count := 0
+	for scanner.Scan() {
+		new_row := strings.Split(scanner.Text(), "")
+		dimensions[0] += 1
+		dimensions[1] = len(new_row)
+		next_floor := make([]int, len(new_row))
+		row_count = 0
+		for i, v := range new_row {
+			if row_count > 50 {break}
+			next, _ := strconv.Atoi(v)
+			next_floor[i] = next
+			basins = append(basins, next)
+			if next == 9{
+				flash_floor = append(flash_floor, 0)
+			} else{
+				flash_floor = append(flash_floor, next+1)
+			}
+			row_count ++
+		}
+		dimensions[1] = row_count -1
+		cave_floor = append(cave_floor, next_floor)
+
+	}
+
+	Print_grid_flash(flash_floor, dimensions)
 }
 
 func d9_part2(){
