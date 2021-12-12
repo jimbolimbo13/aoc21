@@ -19,7 +19,7 @@ var(
 )
 
 func Day11() {
-	flash_graphics()
+	// flash_graphics()
 	d11_part1()
 	d11_part2()
 }
@@ -55,7 +55,7 @@ func flash_graphics(){
 		cmd := exec.Command("clear") //Linux example, its tested
 		cmd.Stdout = os.Stdout
         cmd.Run()
-		print_grid_flash(octopi, dim)
+		Print_grid_flash(octopi, dim)
 		time.Sleep(150 * time.Millisecond)
 	}
 
@@ -234,30 +234,30 @@ func Print_grid(octopi []int, dim []int) {
 	}
 }
 
-func print_grid_flash(octopi []int, dim []int) {
+func Print_grid_flash(octopi []int, dim []int) {
 	for i := 0; i < dim[0]; i++{
 		for j := 0; j < dim[1]; j++{
 			spacer := " "
 			sign := ""
 			switch octopi[j +(i*dim[1])]{
 				case 1:
-					sign = "."
+					sign = "･"
 				case 2:
-					sign = "."
+					sign = "･"
 				case 3:
-					sign = "."
+					sign = "･"
 				case 4:
-					sign = "."
+					sign = "𐄁"
 				case 5:
-					sign = ""
+					sign = ""
 				case 6:
-					sign = ""
+					sign = ""
 				case 7:
-					sign = ""
+					sign = ""
 				case 8:
-					sign = ""
+					sign = ""
 				case 9:
-					sign = ""
+					sign = ""
 				case 0:
 					sign = ""
 					spacer = ""

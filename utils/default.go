@@ -12,7 +12,7 @@ func DayXX() {
 }
 
 func dXX_part2(){
-	fmt.Println("DayXX, Part2")
+	fmt.Println("DayXX, Part2:")
 }
 
 func dXX_part1() {
