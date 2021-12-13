@@ -12,13 +12,14 @@ func DayXX() {
 }
 
 func dXX_part2(){
-	fmt.Println("DayXX, Part2")
+	fmt.Println("DayXX, Part2:")
 }
 
 func dXX_part1() {
-	file, err := os.Open("./data/dayXX_input.txt")
+	file, err := os.Open("./data/dayXX_example.txt")
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	defer file.Close()
 

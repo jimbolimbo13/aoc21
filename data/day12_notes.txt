@@ -1,0 +1,64 @@
+map[
+A:[start c b end]
+b:[start A d end]
+c:[A]
+d:[b]
+end:[A b]
+start:[A b]]
+
+
+where I've been: wib
+start at start
+    wib = []
+    next = [A b]
+go to first Next:
+at A
+    wib = [start]
+    next = [start c b end]
+go to first Next excluding start. if wib has a pair of lowercases exclude all lowercase
+at c
+    wib = [start A]
+    next = [A]
+at A
+    wib = [start A c]
+    next = [start c b end]
+go to first Next excluding anything in wib, if wib lowercase
+at b
+    wib = [start A c A]
+    next = [start A d end]
+go to first Next excluding anything in wib, if wib lowercase
+at d
+    wib = [start A c A b]
+    next = [b]
+go to first Next excluding anything in wib, if wib lowercase
+nowhere -> done , return d
+
+at b
+    wib = [start A c A]
+    next = [start A d end]
+go to next Next excluding anything in wib, if wib lowercase
+at end
+    wib = [start A c A b]
+    next = [A d]
+special -> done, return end (add wib + end to some list)
+    s A c A b e
+
+at b
+    wib = [start A c A]
+    next = [start A d end]
+nowhere to go, return b
+
+at A
+    wib = [start A c]
+    next = [start c b end]
+go to next Next excluding anything in wib, if wib lowercase
+at end
+    wib = [start A c A]
+    next = [A d]
+special -> done, return end (add wib + end to some list)
+    s A c A e
+
+at c
+    wib = [start A]
+    next = [A]
+nowhere to go, return c

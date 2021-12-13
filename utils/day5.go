@@ -152,7 +152,7 @@ func trace_vec(vec []int){
 
 	diff_xy := []int{int(math.Abs(float64(x_diff))),
 		int(math.Abs(float64(y_diff)))}
-	run := greater(diff_xy[0], diff_xy[1])
+	run := Greater(diff_xy[0], diff_xy[1])
 	diag := false
 	if diff_xy[0] == diff_xy[1] {
 		diag = true
@@ -183,7 +183,7 @@ func lesser(a int, b int) int{
 	}
 }
 
-func greater(a int, b int) int{
+func Greater(a int, b int) int{
 	if a >= b {
 		return 0
 	} else {
