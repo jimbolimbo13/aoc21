@@ -39,9 +39,9 @@ func d5_part2(){
 		second := strings.Split(split[2], ",")
 
 		line = []string{first[0], first[1], second[0], second[1]}
-		line_int = str_to_int(line)
+		line_int = SliceStrToSliceInt(line)
 		ortho_lns = append(ortho_lns, line_int)
-		mag_max, dir_max := get_max_vec(line_int)
+		mag_max, dir_max := Get_max_vec(line_int)
 		if dir_max < 0 {
 			if mag_max > max_xy[0]{
 				max_xy[0] = mag_max
@@ -91,9 +91,9 @@ func d5_part1() {
 		second := strings.Split(split[2], ",")
 		if first[0] == second [0] || first[1] == second[1]{
 			line = []string{first[0], first[1], second[0], second[1]}
-			line_int = str_to_int(line)
+			line_int = SliceStrToSliceInt(line)
 			ortho_lns = append(ortho_lns, line_int)
-			mag_max, dir_max := get_max_vec(line_int)
+			mag_max, dir_max := Get_max_vec(line_int)
 			if dir_max < 0 {
 				if mag_max > max_xy[0]{
 					max_xy[0] = mag_max
@@ -191,7 +191,7 @@ func Greater(a int, b int) int{
 	}
 }
 
-func get_max_vec(vec []int) (int, int){
+func Get_max_vec(vec []int) (int, int){
 	ret_mag := 0
 	ret_dir := 0  // 0 for x, 1 for y
 	for i, v := range vec {
@@ -200,13 +200,13 @@ func get_max_vec(vec []int) (int, int){
 			ret_dir = i%2
 		}
 	}
-	if ret_mag == vec[1^ret_dir] || ret_mag == vec[1^ret_dir + 2]{
+	if len(vec) > 2 && ( ret_mag == vec[1^ret_dir] || ret_mag == vec[1^ret_dir + 2]){
 		ret_dir = -1
 	}
 	return ret_mag, ret_dir
 }
 
-func str_to_int(str []string) []int {
+func SliceStrToSliceInt(str []string) []int {
 	ret_int := make([]int, len(str))
 	for i, v := range str{
 		ret_int[i], _ = strconv.Atoi(v)

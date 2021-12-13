@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
+	"math"
 )
 
 func Day8() {
