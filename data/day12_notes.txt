@@ -15,7 +15,7 @@ go to first Next:
 at A
     wib = [start]
     next = [start c b end]
-go to first Next excluding anything in wib, if wib lowercase
+go to first Next excluding start. if wib has a pair of lowercases exclude all lowercase
 at c
     wib = [start A]
     next = [A]
