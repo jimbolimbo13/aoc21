@@ -4,8 +4,6 @@ go 1.17
 
 require aoc21/utils v0.0.0
 
-<<<<<<< HEAD
-=======
 require (
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/keegancsmith/rpc v1.3.0 // indirect
@@ -25,5 +23,4 @@ require (
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
 
->>>>>>> ca33d39433c2a49dee324157d8f7be5305c8481e
 replace aoc21/utils => ./utils
