@@ -4,24 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-<<<<<<< HEAD
-)
-
-func DayXX() {
-	dXX_part1()
-	dXX_part2()
-}
-
-func dXX_part2(){
-	fmt.Println("DayXX, Part2")
-}
-
-func dXX_part1() {
-	file, err := os.Open("./data/dayXX_input.txt")
-=======
-	"strings"
-	"math"
-	// "regexp"
 )
 
 func Day8() {
@@ -250,7 +232,6 @@ func string_diff(sta string, stb string) string {
 
 func d8_part1() {
 	file, err := os.Open("./data/day8_input.txt")
->>>>>>> ca33d39433c2a49dee324157d8f7be5305c8481e
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -258,12 +239,9 @@ func d8_part1() {
 
 	scanner := bufio.NewScanner(file)
 
-<<<<<<< HEAD
 	for scanner.Scan() {
 		// process data
 	}
-	fmt.Println("DayXX, Part1:")
-=======
 	before_split := make([][]string, 0)
 	after_split := make([][]string, 0)
 	// digit_counts := make([]int, 10)
@@ -284,5 +262,4 @@ func d8_part1() {
 		}
 	}
 	fmt.Println("Day8, Part1:", digit_counts)
->>>>>>> ca33d39433c2a49dee324157d8f7be5305c8481e
 }
