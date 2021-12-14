@@ -14,7 +14,7 @@ const (
 )
 
 func Day13() {
-	// d13_part1()
+	d13_part1()
 	d13_part2()
 }
 
@@ -68,38 +68,18 @@ func d13_part2(){
 		if a == 0 {
 			return 1
 		} else {
-			return 9
+			return 0
 		}
 	}
 
 	for i := range commands{
-		fmt.Print("fold ",i)
-		if i == 100 {
-
-			for _,v := range dots{
-				// fmt.Println(v)
-				Print_grid_flash(MapInt(flip_zero, v), []int{1,len(v)})
-			}
-		}
-		// if i >= 8 {
-		// 	if commands[i][0] == X {
-		// 		PrintColumnInt(dots, commands[i][1])
-		// 	} else {
-		// 		fmt.Println(dots[commands[i][1]])
-		// 	}
-		// }
-		// dots , max_xy = foldGrid(dots, commands[i][1], commands[i][0], []int{len(dots),len(dots[0])})
 		dots , max_xy = foldGrid(dots, commands[i][1], commands[i][0], max_xy)
-		fmt.Println(len(dots), len(dots[0]),max_xy)
 	}
 
+	fmt.Println("Day13, Part2:")
 	for _,v := range dots{
-		// fmt.Println(v)
 		Print_grid_flash(MapInt(flip_zero, v), []int{1,len(v)})
 	}
-	fmt.Println(ReverseInt([]int{1,2,3,4}))
-	fmt.Println(ReverseInt([]int{1,2,3,4,5}))
-	fmt.Println("Day13, Part2:")
 }
 
 func d13_part1() {
@@ -167,9 +147,6 @@ func d13_part1() {
 }
 
 func foldGrid(grid [][]int, coord int, dir int, dim []int) ([][]int, []int) {
-	// new_x := 0
-	// new_y := 1
-	fmt.Println(" ",coord,dir,dim, len(grid),len(grid[0]))
 	folded := make([][]int,0)
 	comp  := func(a int, b int) int{
 		if a == 1 || b == 1{
@@ -181,18 +158,12 @@ func foldGrid(grid [][]int, coord int, dir int, dim []int) ([][]int, []int) {
 
 	if dir == Y {
 		folded = make([][]int,coord)
-		if coord < 40 {
-			fmt.Println("lengths",len(grid[0]), len(grid[dim[Y]-0]))
-		}
 		for i:=0; i<coord; i++{
 			folded[i] = mergeSliceInt(grid[i], grid[dim[Y]-i], comp)
 		}
 
 	} else {
 		folded = make([][]int,len(grid))
-		if coord < 100{
-			fmt.Println("lengths",len(grid[0][:coord]),len(grid[0][coord+1:]))
-		}
 		for i,v := range grid{
 			folded[i] = mergeSliceInt(v[:coord], ReverseInt( v[coord+1:]), comp)
 		}
