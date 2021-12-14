@@ -97,6 +97,8 @@ func d13_part2(){
 		// fmt.Println(v)
 		Print_grid_flash(MapInt(flip_zero, v), []int{1,len(v)})
 	}
+	fmt.Println(ReverseInt([]int{1,2,3,4}))
+	fmt.Println(ReverseInt([]int{1,2,3,4,5}))
 	fmt.Println("Day13, Part2:")
 }
 
@@ -211,7 +213,7 @@ func mergeSliceInt (s1 []int, s2 []int, f func(a int, b int) int) []int {
 func ReverseInt(s []int) []int{
 	reversed := s
 	last := 0
-	for i:=0; i<=(len(s)/2); i++{
+	for i:=0; i<(len(s)/2); i++{
 		last = reversed[len(s)-i-1]
 		reversed[len(s)-i-1] = reversed[i]
 		reversed[i] = last
