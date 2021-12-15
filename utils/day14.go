@@ -15,25 +15,55 @@ func Day14() {
 }
 
 func d14_part2(){
-	step_max := 10
-	polymer, ins_rules, char_map := parseInput14("example")
+	step_max := 40
+	polymer, ins_rules, char_map := parseInput14("input")
 	// diff := func(a int, b int) int {
 	// 	return a-b
 	// }
 	// past_count := make([]int,len(char_map))
 	// new_count := make([]int,0,len(char_map))
-	for i:=0;i<step_max;i++{
-
-		fmt.Println(polymer,"\n")
-		polymer = next_step_linear(polymer, ins_rules)
-		// new_count = count_poly_unsort(polymer, char_map)
-		// fmt.Println("length:", len(polymer), MergeSliceInt(new_count, past_count, diff))
-		// past_count = new_count
+	pair_counts := make(map[string]int)
+	pair := ""
+	for i := range polymer {
+		if i < len(polymer)-1{
+			pair = polymer[i: i+2]
+			pair_counts[pair] ++
+		}
 	}
-	fmt.Println(polymer,"\n")
-	counts := count_poly(polymer, char_map)
-	// fmt.Println(counts)
+	last_char := polymer[len(polymer)-1:]
+
+	for i:=0;i<step_max;i++{
+		pair_counts = run_insert(pair_counts, ins_rules)
+	}
+	counts := count_pairs(pair_counts, last_char, char_map)
 	fmt.Println("Day14, Part2:", counts[len(counts)-1]-counts[0])
+}
+
+func run_insert(counts map[string]int, rules map[string]string) map[string]int {
+	// NN
+	// NCN
+	// NC CN
+	next_count := make(map[string]int)
+	first_pair := ""
+	second_pair := ""
+	inserted := ""
+	for i, v := range counts{
+		inserted = rules[i]
+		first_pair = i[:1] + inserted
+		second_pair = inserted + i[1:]
+		if k, ok := next_count[first_pair]; ok{
+			next_count[first_pair] = v + k
+		} else {
+			next_count[first_pair] = v
+		}
+		if k, ok := next_count[second_pair]; ok{
+			next_count[second_pair] = v + k
+		} else {
+			next_count[second_pair] = v
+		}
+	}
+
+	return next_count
 }
 
 func d14_part1() {
@@ -47,23 +77,20 @@ func d14_part1() {
 	fmt.Println("Day14, Part1:",counts[len(counts)-1]-counts[0])
 }
 
-func count_poly_unsort(p string, char_map map[rune]int) []int {
-	for _,v := range p {
-		char_map[v] ++
-	}
+func count_pairs(pairs map[string]int, z string, char_map map[rune]int) []int {
 	counts := make([]int,len(char_map))
-	chars := make([]string,0)
 
-	for v := range char_map {
-		chars = append(chars, string(v))
+	for k, v := range pairs{
+		char_map[rune(k[0])] += v
 	}
-	sort.Strings(chars)
+	char_map[rune(z[0])] ++
+
 	i:=0
-	for _,v := range chars {
-		counts[i] = char_map[rune(v[0])]
+	for _,v := range char_map {
+		counts[i] = v
 		i++
 	}
-	fmt.Println(chars)
+	sort.Ints(counts)
 	return counts
 }
 

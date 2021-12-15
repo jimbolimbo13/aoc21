@@ -50,15 +50,21 @@ func flash_graphics(){
 
 	for !all_flashed {
 		run_step(&octopi, dim)
+		print_octo_flash(octopi, dim)
+		// time.Sleep(550 * time.Millisecond)
+	}
+	run_step(&octopi, dim)
+	print_octo_flash(octopi, dim)
+
+	fmt.Println()
+
+}
+
+func print_octo_flash(octopi []int, dim []int){
 		cmd := exec.Command("clear")
 		cmd.Stdout = os.Stdout
         cmd.Run()
 		Print_grid_flash(octopi, dim)
-		time.Sleep(75 * time.Millisecond)
-	}
-
-	fmt.Println()
-
 }
 
 func d11_part2(){
@@ -134,6 +140,8 @@ func run_step(octopi *[]int, dim []int){
 		for i, _ := range flashers{
 			octo_flash(i, octopi, dim)
 		}
+		time.Sleep(30 * time.Millisecond)
+		print_octo_flash(*octopi, dim)
 	}
 	// reset flashed
 	negative := func(i int) bool { return i < 0 }
@@ -256,9 +264,16 @@ func Print_grid_flash(octopi []int, dim []int) {
 					sign = ""
 				case 9:
 					sign = ""
-				case 0:
+				// case 0:
+				// 	sign = ""
+				// 	spacer = ""
+			}
+			switch {
+				case octopi[j +(i*dim[1])] > 9:
 					sign = ""
 					spacer = ""
+				case octopi[j +(i*dim[1])] <= 0:
+					sign = " "
 			}
 			fmt.Printf("%s%s%s", spacer, sign, spacer)
 			// fmt.Print(j +(i*dim[1]))
