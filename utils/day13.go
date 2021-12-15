@@ -159,13 +159,13 @@ func foldGrid(grid [][]int, coord int, dir int, dim []int) ([][]int, []int) {
 	if dir == Y {
 		folded = make([][]int,coord)
 		for i:=0; i<coord; i++{
-			folded[i] = mergeSliceInt(grid[i], grid[dim[Y]-i], comp)
+			folded[i] = MergeSliceInt(grid[i], grid[dim[Y]-i], comp)
 		}
 
 	} else {
 		folded = make([][]int,len(grid))
 		for i,v := range grid{
-			folded[i] = mergeSliceInt(v[:coord], ReverseInt( v[coord+1:]), comp)
+			folded[i] = MergeSliceInt(v[:coord], ReverseInt( v[coord+1:]), comp)
 		}
 	}
 	dim[Y] = len(folded) -1
@@ -173,7 +173,7 @@ func foldGrid(grid [][]int, coord int, dir int, dim []int) ([][]int, []int) {
 	return folded, dim
 }
 
-func mergeSliceInt (s1 []int, s2 []int, f func(a int, b int) int) []int {
+func MergeSliceInt (s1 []int, s2 []int, f func(a int, b int) int) []int {
 	merged := s1
 	for i,v := range merged {
 		merged[i] = f(v, s2[i])
