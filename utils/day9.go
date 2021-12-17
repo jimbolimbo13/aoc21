@@ -91,7 +91,7 @@ func d9_part2(){
 		for j := range floor {
 			here := j + i*row_len
 			if basins[here] == 9 { continue }
-			if is_valid_hor(here, here+1, dimensions) && basins[here +1] != 9{
+			if Is_valid_hor(here, here+1, dimensions) && basins[here +1] != 9{
 				next_slope := slope(basins[here], basins[here + 1] )
 				switch next_slope {
 				case -1:
@@ -106,7 +106,7 @@ func d9_part2(){
 					}
 				}
 			}
-			if is_valid_vert(here, here+row_len, dimensions) && basins[here+row_len] !=9 {
+			if Is_valid_vert(here, here+row_len, dimensions) && basins[here+row_len] !=9 {
 				next_slope := slope(basins[here], basins[here + row_len] )
 				switch next_slope {
 				case -1:
@@ -209,7 +209,7 @@ func slope(a int, b int) int {
 	}
 }
 
-func is_valid_hor(a int, b int, dim []int) bool {
+func Is_valid_hor(a int, b int, dim []int) bool {
 	// 9 - 10
 	switch {
 		case a < 0:
@@ -223,7 +223,7 @@ func is_valid_hor(a int, b int, dim []int) bool {
 	}
 }
 
-func is_valid_vert(a int, b int, dim []int) bool {
+func Is_valid_vert(a int, b int, dim []int) bool {
 	switch {
 		case a < 0:
 			return false

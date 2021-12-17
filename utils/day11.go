@@ -168,7 +168,7 @@ func octo_flash(o int, list *[]int, dim []int){
 		for j := -1; j <= 1; j++{
 			if j == 0 && i == 0 {continue}
 			ix = o + (i*dim[1]) + (1*j)
-			if is_valid_ix(o, ix, dim){
+			if Is_valid_ix(o, ix, dim){
 				// fmt.Println(ix,(*list)[ix])
 				(*list)[ix] = (*list)[ix] + 1
 			}
@@ -177,12 +177,9 @@ func octo_flash(o int, list *[]int, dim []int){
 	}
 	(*list)[o] = -100
 	total_flashes ++
-	// if is_valid_ix(o, o+1, dim){
-	// 	(*list)[o+1] = (*list)[o+1] +1
-	// }
 }
 
-func is_valid_ix(start int, next int, dim []int) bool {
+func Is_valid_ix(start int, next int, dim []int) bool {
 	s_row := start / dim[0]
 	s_col := start % dim[1]
 	n_row := next / dim[0]

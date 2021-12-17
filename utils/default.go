@@ -12,11 +12,17 @@ func DayXX() {
 }
 
 func dXX_part2(){
+	parseInputXX("example")
 	fmt.Println("DayXX, Part2:")
 }
 
 func dXX_part1() {
-	file, err := os.Open("./data/dayXX_example.txt")
+	parseInputXX("example")
+	fmt.Println("DayXX, Part1:")
+}
+
+func parseInputXX(f string) {
+	file, err := os.Open("./data/dayXX_"+ f +".txt")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -28,5 +34,4 @@ func dXX_part1() {
 	for scanner.Scan() {
 		// process data
 	}
-	fmt.Println("DayXX, Part1:")
 }
