@@ -21,6 +21,10 @@ func d16_part2(){
 
 func d16_part1() {
 	reader := parseInput16("example")
+
+	b := &bytes.Buffer{}
+	w := bitio.NewWriter(b)
+
 	next, err := reader.ReadBits(3)
 	if err != nil{
 		panic(err)
@@ -38,6 +42,7 @@ func d16_part1() {
 	}
 	fmt.Print(next, " ")
 	next, err = reader.ReadBits(4)
+	w.WriteBits(next, 4)
 	if err != nil{
 		panic(err)
 	}
@@ -48,6 +53,7 @@ func d16_part1() {
 	}
 	fmt.Print(next, " ")
 	next, err = reader.ReadBits(4)
+	w.WriteBits(next, 4)
 	if err != nil{
 		panic(err)
 	}
@@ -58,11 +64,18 @@ func d16_part1() {
 	}
 	fmt.Print(next, " ")
 	next, err = reader.ReadBits(4)
+	w.WriteBits(next, 4)
 	if err != nil{
 		panic(err)
 	}
-	fmt.Print(next, " ")
+	fmt.Print(next, "\n")
 
+	w.Close()
+	reader2 := bitio.NewReader(b)
+	final,err := reader2.ReadBits(12)
+	reader3 := bitio.NewReader(b)
+	total2, _ := reader3.Read(b.Bytes())
+	fmt.Println(b.Bytes(), b.Len(), final, total2 )
 	fmt.Println("\nDay16, Part1:")
 }
 
@@ -77,15 +90,22 @@ func parseInput16(f string) *bitio.Reader {
 	scanner := bufio.NewScanner(file)
 
 	var input []byte
+	var inputHex []byte
 	for scanner.Scan() {
 		check := scanner.Text()
 		if check [:1] == "#" { continue }
 		input = scanner.Bytes()
+		inputHex = make([]byte, hex.DecodedLen(len(input)))
+		_, err := hex.Decode(inputHex, input)
+		if err != nil{
+			fmt.Println(err)
+			panic(err)
+		}
 	}
 
-	fmt.Println(input)
+	fmt.Println(inputHex)
 
-	reader := bitio.NewReader(bytes.NewBuffer(input))
+	reader := bitio.NewReader(bytes.NewBuffer(inputHex))
 	return reader
 }
 
