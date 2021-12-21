@@ -8,35 +8,93 @@ import (
 	"strings"
 )
 
+var (
+	maxY int
+)
+
 func Day17() {
-	d17_part1()
+	// d17_part1()
 	d17_part2()
 }
 
 func d17_part2(){
-	parseInput17("example")
-	fmt.Println("Day17, Part2:")
-}
-
-func d17_part1() {
-	xLimits, yLimits := parseInput17("example")
-	fmt.Println(xLimits, yLimits)
+	xLimits, yLimits := parseInput17("input")
+	// fmt.Println(xLimits, yLimits)
 
 	target_range := make([][]int,2)
 	target_range[0] = xLimits
 	target_range[1] = yLimits
 
-	fmt.Println(isReachTarget(6, 9, target_range))
-	fmt.Println("Day17, Part1:")
+	yRange := 2000
+	guesses := make([][]int,yRange)
+	for i := range guesses {
+		guesses[i] = make([]int, target_range[0][1]+1)
+	}
+
+	maxY = 0
+	target_count := 0
+	for i, v := range guesses {
+		for j := range v {
+			if isReachTarget(j, i-(yRange/2), target_range){
+				guesses[i][j] = 1
+				target_count ++
+			}
+		}
+	}
+
+	// for _,v  := range guesses {
+	// 	for _,k := range v {
+	// 		fmt.Print(k," ")
+	// 	}
+	// 	fmt.Println()
+	// }
+
+	// fmt.Println(isReachTarget(6, 9, target_range))
+	fmt.Println("Day17, Part2:", target_count)
+}
+
+func d17_part1() {
+	xLimits, yLimits := parseInput17("input")
+	// fmt.Println(xLimits, yLimits)
+
+	target_range := make([][]int,2)
+	target_range[0] = xLimits
+	target_range[1] = yLimits
+
+	guesses := make([][]int,1000)
+	for i := range guesses {
+		guesses[i] = make([]int, 1000)
+	}
+
+	maxY = 0
+	for i, v := range guesses {
+		for j := range v {
+			if isReachTarget(i, j, target_range){
+				guesses[i][j] = 1
+			}
+		}
+	}
+
+	// for _,v  := range guesses {
+	// 	for _,k := range v {
+	// 		fmt.Print(k," ")
+	// 	}
+	// 	fmt.Println()
+	// }
+
+	// fmt.Println(isReachTarget(6, 9, target_range))
+	fmt.Println("Day17, Part1:", maxY)
 }
 
 func isReachTarget( xVel int, yVel int, target [][]int ) bool {
+	localMaxY := 0
 	xPos := 0
 	yPos := 0
 	next := make([]int, 4)
-	fmt.Println("is", target)
 	for {
+		if yPos > localMaxY { localMaxY = yPos }
 		if xPos >= target[0][0] && xPos <= target[0][1] && yPos >= target[1][0] && yPos <= target[1][1] {
+			if localMaxY > maxY { maxY = localMaxY }
 			return true
 		} else if xPos > target[0][1] || yPos < target[1][0] {
 			return false
@@ -54,7 +112,6 @@ func nextStep (xPos int, yPos int, xVel int, yVel int) []int {
 	if xVel > 0 { xVel -- }
 	yPos += yVel
 	yVel --
-	fmt.Println("nextStep", xPos, yPos)
 	return []int{xPos, yPos, xVel, yVel}
 }
 
