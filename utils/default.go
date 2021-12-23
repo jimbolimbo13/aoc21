@@ -25,7 +25,7 @@ func parseInputXX(f string) {
 	file, err := os.Open("./data/dayXX_"+ f +".txt")
 	if err != nil {
 		fmt.Println(err)
-		return
+		panic(err)
 	}
 	defer file.Close()
 

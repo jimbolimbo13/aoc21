@@ -14,7 +14,7 @@ var(
 	infinite int
 )
 func Day20() {
-	// d20_part1()
+	d20_part1()
 	d20_part2()
 }
 
@@ -41,23 +41,10 @@ func d20_part2(){
 func d20_part1() {
 	infinite = 0
 	image, enhancement := parseInput20("input")
-	// fmt.Println("starting Image")
-	// dumpImage(image)
-
-	// new_img := padImage(image)
-	// fmt.Println("\nPadded Image")
-	// dumpImage(new_img)
 
 	enhImg := enhanceImage(padImage(image, 3), enhancement)
-	// fmt.Println("\nEnhanced Image")
-	// dumpImage(enhImg)
-
-	// fmt.Println("\nPadded Enhanced Image")
-	// dumpImage( padImage(enhImg))
 
 	enhImg = enhanceImage(padImage(enhImg, 1), enhancement)
-	// fmt.Println("\nFinal Enhanced Image")
-	// dumpImage(enhImg)
 
 	total := 0
 	for _, v := range enhImg {
@@ -112,13 +99,11 @@ func decodPixel(img [][]int, y int, x int, enh []int) int {
 
 	}
 	newRow.Close()
-	// res := bitio.NewReader(&b)
 	enhIx, _ := bitio.NewReader(&b).ReadBits(9)
 	return int(enh[enhIx])
 }
 
 func padImage(img [][]int, padding int) ([][]int) {
-	// fmt.Println("Padding Image with:", infinite)
 	padded := make([][]int, len(img) + 2*padding)
 
 	for i := range padded{
